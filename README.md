@@ -1,9 +1,9 @@
 # 如何实现利用免费资源打造公有库以及私有库
 
-开发规范的包文件，并将这些包发布到`github` or `bitbucket`打招共有以及私有库
+开发规范的包文件，并将这些包发布到`github` or `bitbucket`打造公有以及私有库
 
 > * 开发规范的library包文件
-> * 创建共有包(github)
+> * 创建公有包(github)
 > * 创建私有包(bitbucket)
 > * 如何使用[https://packagist.org/](https://packagist.org/)
 > * 项目中引入公共包
@@ -104,7 +104,7 @@
 
 ### 4. 包开放到`packagist.org`
 
-将我们的共有包添加到[packagist.org](https://packagist.org/)索引，以便别人更好的搜索。
+将我们的公有包添加到[packagist.org](https://packagist.org/)索引，以便别人更好的搜索。
 
 只要在[https://packagist.org/packages/submit](https://packagist.org/packages/submit)页面将我们的github公共包url地址(例如[https://github.com/iranw/irpackagist](https://github.com/iranw/irpackagist))
 添加到输入框即可。之后你就可以在`packagist.org`的搜索框里搜索到你上传的包啦(^_^......)
@@ -112,7 +112,7 @@
 注：添加的时候回验证你的composer.json正确性，所以严格按照要求填写。可以参考第三方包的书写格式
 
 
-### 5. 如何引入共有包
+### 5. 如何引入公有包
 
 * 创建composer.json文件
 
@@ -153,14 +153,14 @@
 
 ### 6. 如何引入私有包
     
-私有包和共有包引入的的规则基本一致，只要在`composer.json`文件稍作修改即可
+私有包和公有包引入的的规则基本一致，只要在`composer.json`文件稍作修改即可
 
 * 私有包引入composer.json文件格式
     
     ###### 样例:
         {    
             "require": {
-                "iran/test": "1.0",                                     //共有库
+                "iran/test": "1.0",                                     //公有库
                 "iran/irpackagist3": "1.0"                              //私有库
             },
             "repositories": [
@@ -178,11 +178,11 @@
     ######直接在入口文件使用样例:
         <?php
         require '../vendor/autoload.php';
-        \Iran\Funcc\StringHelp::dd();           //共有库函数调用
+        \Iran\Funcc\StringHelp::dd();           //公有库函数调用
         \Iran\Funccc\StringHelp::dd();          //私有库函数调用
 
 
---- 自此 整个共有库&私有库调用教程制作完毕 ---
+--- 自此 整个公有库&私有库调用教程制作完毕 ---
 
 创建私有库的其他途径(自建镜像库，Sais,Artifact)
 
