@@ -1,0 +1,62 @@
+###### Yaf+composer组合与yaf+zf组合性能对比
+
+测试1
+普通sql
+测试查询语句：
+$result = zf_Service::loadModel('Account')->findOne('aid=475546');
+$users = Account::find(475571);//$users = Account::where('aid', '=', 475547)->get();// 
+测试更新语句
+zf_Service::loadModel('Account')->update(array('email'=>'a@qq.com'),"`aid`='475571'");
+Account::where('aid', '=', 475571)->update(array('email' => 'as@qq.com'));
+测试插入
+zf_Service::loadModel('Test')->insert($insertData);//Test::create(array('name' => 'John'));
+
+
+
+基本测试
+********************************************************
+测试类型        yaf+composer        yaf+zf
+无sql执行       7ms                 13ms
+查找            20ms(307ms)         20ms(136ms)
+更新            25ms(236ms)         22ms(151ms)
+插入            24ms(234ms)         25ms(126ms)
+
+注:括号里面是循环100次执行的结果，括号外面为执行1次的结果
+
+
+压力测试
+********************************************************
+测试类型            RPS        TPR         FR        
+无sql执行           306/183    3.5/5.3     194/194
+有sql执行           136/140    7.2/7.1     208/198
+
+注1:
+斜线前面为yaf+composer结果斜线后面为yaf+zf结果
+
+注2:
+RPS: Requests per second(越高越好)
+TPR: Time per request(越低越好)
+FR : Failed requests(越低越好)
+
+注3:
+ab -n 2000 -c 100 http://192.168.8.234:7070/demo/index/test
+ab -n 2000 -c 100 http://192.168.8.234:7071/demo/index/test
+成为位于192.168.8.234
+yaf+composer:/home/www/yaf
+yaf+zf:/home/www/yaf-test
+
+结论：再无sql执行的页面 yaf+composer要优于yaf+zf的执行效率
+在有sql执行的页面yaf+composer与yaf+zf的效率相当，基本持平（但是yaf+composer管理项目可以写更少的代码）
+
+
+使用的技术
+composer(https://getcomposer.org/)
+yaf
+第三方类库
+orm(illuminate/database)
+
+php第三方包
+https://packagist.org/
+
+svn(svn://192.168.8.2:8888/ibd.doc/trunk/王文官/yaf-composer)
+
